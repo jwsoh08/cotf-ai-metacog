@@ -30,6 +30,8 @@ import configparser
 import ast
 import ssl
 import time
+
+from helper.secrets_reader import SecretsRetriever
 			  
 try:
 	_create_unverified_https_context = ssl._create_unverified_context
@@ -87,9 +89,10 @@ def initialize_session_state( menu_funcs, default_value):
 
 
 def load_app_session_states():
+	secrets_retriever = SecretsRetriever()
 	#initialize session state for the application
 	if "title_page" not in st.session_state:
-		st.session_state.title_page = st.secrets["default_title"]
+		st.session_state.title_page = secrets_retriever.get_secret("default_title")
 
 	if "func_options" not in st.session_state:
 			st.session_state.func_options = {}
