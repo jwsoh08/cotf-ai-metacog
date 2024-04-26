@@ -1,11 +1,8 @@
-# File can be found
-# localhost
-# streamlit cloud
-# FileNotFoundError
-# aws
+import os
+import json
+from pathlib import Path
 
 import streamlit as st
-import json
 import boto3
 from botocore.exceptions import ClientError
 
@@ -36,11 +33,12 @@ class SecretsManager:
 
 class SecretsRetriever:
     def get_secret(self, name):
+        current_directory = os.getcwd()
+        file_path = Path(current_directory+'/.streamlit/secrets.toml')
         try:
-            return st.secrets[name]
-        except FileNotFoundError:
-            # Assumes that When secrets.toml file is not found,
-            # that means we are on AWS.
-            return SecretsManager.get_secret(name)
+            if file_path.exists():
+                return st.secrets[name]
+            else:
+                return SecretsManager.get_secret(name)
         except:
-            st.error(f"{name} secret cannot be accessed.")
+            st.error(f'{name} secret cannot be read.')
