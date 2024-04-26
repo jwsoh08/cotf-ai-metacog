@@ -1,0 +1,15 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "debug streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/streamlit", // /home/xx/tmp/venv/bin/streamlit",
+            "args": [
+                "run",
+                "metacog.py"
+            ]
+        }
+    ]
+}
