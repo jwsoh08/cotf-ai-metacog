@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  streamlit:
+    image: streamlit-cotf-app
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./:/app # Map the local app directory to /app in the container
+    command: [ "streamlit", "run", "metacog.py" ]
